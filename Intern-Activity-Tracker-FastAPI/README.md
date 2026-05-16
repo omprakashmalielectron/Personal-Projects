@@ -1,3 +1,14 @@
-# omprakash.malli
-Capstone projects for omprakash.malli@neuleap.ai
-I have implemeted a basic Intern class on Day1. On day two i have implemented a menue where we load our data of multiple interns into .json file. On day 3 i implemented a fast api application which loads and stores intern data asynchronusly.
+# ⏳ Intern Activity Tracker (FastAPI)
+
+A progressive, 3-day development project designed to track and manage intern activity data. This repository documents the evolution of the application from a core Object-Oriented Programming (OOP) blueprint to a local file-persisted CLI menu, and ultimately into an asynchronous REST API built with FastAPI.
+
+## 📂 Project Structure
+
+```text
+Intern-Activity-Tracker-FastAPI/
+├── .github/
+│   └── copilot-instructions.md    # Custom GitHub Copilot behavior configurations
+├── Inter-Day1.py                  # Day 1: Core OOP Intern class definition
+├── Intern-Day2.py                 # Day 2: CLI Menu with JSON file persistence
+├── Inter-Fastapi-Day3.py          # Day 3: Asynchronous FastAPI implementation
+└── README.md                      # Project documentation
