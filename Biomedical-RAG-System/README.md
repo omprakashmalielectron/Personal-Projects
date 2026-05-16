@@ -1,11 +1,36 @@
-# omprakash.malli
-Capstone projects for omprakash.malli@neuleap.ai
+## 📑 Multimodal Document Ingestion & RAG Pipeline
 
-In this i have done ingestion part using Docling. Docling takes a pdf and parses it into a docling file which can be configured as per requirements also it provides flexibility of handling images via local or API based VLM. IT also have ability to integrate with OCR so over all highly custmoizeable pipline to take various file types as input and convert them to a docling file(docling uses lightweight vision model to do layout detection in pdf pages along with detection of images and tables to preserve their structure while parsing pdf page by page). This docling file then can be exported as markdown or json or further document transformation can be done on docling file itself like docling provides rich set of libraries to do various type of chnuking like hybrid chunking or hirearchial chunking which is also customizable(along with metadata about chunk).Then this chunks is converted to Langchain document object so that it can be stored into vectordb supported by langchain.
+An advanced, structure-aware Retrieval-Augmented Generation (RAG) pipeline built to ingest complex multi-format documents, preserve hierarchical layouts, and offer flexible retrieval mechanics.
 
-In retriveal part i have tried to implement it in two ways one which keeps track of previous converation and one which doesn't.
+### 🛠️ Tech Stack & Core Libraries
+* **Document Parsing:** Docling (by IBM)
+* **LLM Orchestration:** LangChain
+* **Vision & OCR:** Local/API-based VLMs (Vision-Language Models) and custom OCR engines
+* **Vector Storage:** LangChain-supported Vector Databases
 
-FURTHER SCOPE OF IMPROVEMENTS:
+---
 
-1) Currently hybrid chunker is doing token based chunking while respecting the input context length of embedding model but this also causes chunks to be not so ideal or respect the hierarchy of the document which can be imporvoed by using llama modles to to chunk and store hierarchial chnuks which help us avoid creating chunks that  splits tables from middle or give chunks with very ununiform sizes like some chunks are way big(upto context length of embedding models) and some are way small(they don't have any semantic meaning).
-2) Even retriver part can be modified docling provides a way to contextualize each chunk which can help in creating chunks with rich metadata and the we can modifiy our retriver to do hybrid search along with ability to do metadata based filtering. This would help in answer question like can you tell me what is abstract of xyz.pdf.
+### 🚀 Key Features
+
+#### 1. Advanced Document Ingestion Engine
+* **Structure-Aware Layout Detection:** Replaced native text extractors with **Docling**, utilizing its lightweight vision models to perform page-by-page layout detection. This ensures complex elements like multi-column layouts, images, and tables are preserved without losing structural integrity.
+* **Multimodal Flexibility:** Highly customizable pipeline supporting local or API-driven **Vision-Language Models (VLMs)** and OCR integrations to handle scanned documents, text-heavy charts, and embedded graphics.
+* **Semantic Chunking:** Transforms raw parses into Markdown/JSON formats before applying custom hybrid and hierarchical chunking strategies, retaining key contextual metadata for every chunk.
+* **Vector Database Integration:** Automatically maps final document chunks into **LangChain Document objects** for streamlined embedding and downstream vector database ingestion.
+
+#### 2. Dual-Mode Retrieval Architecture
+Implemented and evaluated two distinct retrieval strategies to handle different user interaction paradigms:
+* **Stateful (Conversational):** Tracks full dialogue and message history to resolve contextual dependencies over multi-turn Q&A sessions.
+* **Stateless (Non-Conversational):** Optimized for direct, single-turn factual extraction and low-latency information lookup.
+
+---
+
+### 🔮 Future Roadmap & Enhancements
+
+#### 📈 1. Transition to LLM-Driven Hierarchical Chunking
+* **Current Limitation:** The token-based hybrid chunker strictly adheres to embedding model token limits but occasionally fractures the document’s natural hierarchy. This can split tables down the middle or create text fragments lacking distinct semantic meaning.
+* **Proposed Solution:** Integrate **Llama-based models** to handle rule-and-semantic-based hierarchical chunking. This will maintain uniform chunk sizing and ensure tables or cohesive subsections remain unbroken.
+
+#### 🔍 2. Chunk Contextualization & Hybrid Search
+* **Current Limitation:** Traditional dense vector retrieval struggles with metadata-specific or structural queries (e.g., searching specifically for the "Abstract" or "Conclusion" section).
+* **Proposed Solution:** Leverage Docling's native **chunk contextualization feature** to stamp rich, localized metadata onto each vector. This enables a hybrid search framework (Combining Semantic Dense Vectors + Keyword BM25 + Metadata Filtering) to handle precise document-level requests, such as: *"What is the abstract of report_xyz.pdf?"*
